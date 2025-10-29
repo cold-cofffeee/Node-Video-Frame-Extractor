@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extracted Frames - Video Frame Extractor</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      color: white;
+      margin-bottom: 30px;
+    }
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .stats-bar {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #667eea;
+    }
+    .stat-label {
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+    .btn-action {
+      padding: 12px 30px;
+      font-weight: 600;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: all 0.3s;
+    }
+    .btn-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    .btn-download-all {
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      border: none;
+      color: white;
+    }
+    .btn-new {
+      background: white;
+      color: #667eea;
+      border: 2px solid white;
+    }
+    .frames-container {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .frame-card {
+      margin-bottom: 20px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+      background: white;
+    }
+    .frame-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .frame-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .frame-card-body {
+      padding: 15px;
+      text-align: center;
+    }
+    .btn-download-frame {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+    }
+    .btn-download-frame:hover {
+      background: #5568d3;
+      transform: scale(1.05);
+    }
+    .download-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+    .download-content {
+      text-align: center;
+      color: white;
+    }
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid rgba(255,255,255,0.2);
+      border-top-color: #38ef7d;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .frame-number {
+      font-size: 0.85rem;
+      color: #6c757d;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid" style="max-width: 1400px;">
+    <div class="header">
+      <h1>✨ Frames Extracted Successfully!</h1>
+      <p>Your video has been processed and frames are ready to download</p>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-number"><%= frameCount %></div>
+        <div class="stat-label">Total Frames</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">PNG</div>
+        <div class="stat-label">Format</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">1 Hour</div>
+        <div class="stat-label">Available For</div>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <a href="/download-all/<%= sessionId %>" class="btn btn-action btn-download-all" id="downloadAllBtn">
+        <i class="bi bi-download"></i> Download All as ZIP
+      </a>
+      <a href="/" class="btn btn-action btn-new">
+        <i class="bi bi-plus-circle"></i> Extract New Video
+      </a>
+    </div>
+
+    <div class="frames-container">
+      <h3 class="mb-4"><i class="bi bi-images"></i> All Frames</h3>
+      <div class="row g-4">
+        <% frames.forEach((f, index) => { %>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="frame-card">
+              <img src="<%= f %>" alt="Frame <%= index + 1 %>" loading="lazy">
+              <div class="frame-card-body">
+                <div class="frame-number mb-2">Frame <%= index + 1 %></div>
+                <a href="<%= f %>" download class="btn btn-download-frame">
+                  <i class="bi bi-download"></i> Download
+                </a>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+
+  <div class="download-overlay" id="downloadOverlay">
+    <div class="download-content">
+      <div class="spinner"></div>
+      <h3>Preparing ZIP file...</h3>
+      <p>Your download will start shortly</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('downloadAllBtn').addEventListener('click', function(e) {
+      document.getElementById('downloadOverlay').style.display = 'flex';
+      
+      // Hide overlay after 3 seconds (download should have started by then)
+      setTimeout(() => {
+        document.getElementById('downloadOverlay').style.display = 'none';
+      }, 3000);
+    });
+  </script>
+</body>
+</html>

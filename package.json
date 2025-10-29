@@ -1,0 +1,44 @@
+{
+  "name": "video-frame-extractor",
+  "version": "2.0.0",
+  "description": "A modern web application to extract frames from videos using Node.js, Express, and FFmpeg. Upload videos, choose frame rates, and download frames individually or as a ZIP file.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "video",
+    "frame",
+    "extractor",
+    "ffmpeg",
+    "nodejs",
+    "express",
+    "video-processing",
+    "frame-extraction",
+    "video-frames",
+    "web-app"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/video-frame-extractor.git"
+  },
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "bootstrap": "^5.3.8",
+    "child_process": "^1.0.2",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-fileupload": "^1.5.2",
+    "fs-extra": "^11.3.2",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
