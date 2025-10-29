@@ -113,6 +113,25 @@
       background: #5568d3;
       transform: scale(1.05);
     }
+    .btn-preview-frame {
+      background: #38ef7d;
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+      margin-left: 5px;
+    }
+    .btn-preview-frame:hover {
+      background: #2dd66d;
+      transform: scale(1.05);
+    }
+    .frame-buttons {
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+    }
     .download-overlay {
       display: none;
       position: fixed;
@@ -145,6 +164,48 @@
       font-size: 0.85rem;
       color: #6c757d;
       font-weight: 500;
+    }
+    .preview-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .preview-modal-content {
+      max-width: 90%;
+      max-height: 90%;
+      position: relative;
+    }
+    .preview-modal-content img {
+      max-width: 100%;
+      max-height: 90vh;
+      border-radius: 10px;
+      box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+    }
+    .preview-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: white;
+      color: #333;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .preview-close:hover {
+      background: #f0f0f0;
+      transform: rotate(90deg);
     }
   </style>
 </head>
@@ -188,9 +249,14 @@
               <img src="<%= f %>" alt="Frame <%= index + 1 %>" loading="lazy">
               <div class="frame-card-body">
                 <div class="frame-number mb-2">Frame <%= index + 1 %></div>
-                <a href="<%= f %>" download class="btn btn-download-frame">
-                  <i class="bi bi-download"></i> Download
-                </a>
+                <div class="frame-buttons">
+                  <a href="<%= f %>" download class="btn btn-download-frame">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                  <button class="btn btn-preview-frame" onclick="openPreview('<%= f %>', <%= index + 1 %>)">
+                    <i class="bi bi-eye"></i> Preview
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -207,6 +273,13 @@
     </div>
   </div>
 
+  <div class="preview-modal" id="previewModal">
+    <div class="preview-modal-content">
+      <button class="preview-close" onclick="closePreview()">&times;</button>
+      <img id="previewImage" src="" alt="Frame Preview">
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     document.getElementById('downloadAllBtn').addEventListener('click', function(e) {
@@ -216,6 +289,32 @@
       setTimeout(() => {
         document.getElementById('downloadOverlay').style.display = 'none';
       }, 3000);
+    });
+
+    function openPreview(imageSrc, frameNumber) {
+      const modal = document.getElementById('previewModal');
+      const img = document.getElementById('previewImage');
+      img.src = imageSrc;
+      img.alt = 'Frame ' + frameNumber + ' Preview';
+      modal.style.display = 'flex';
+    }
+
+    function closePreview() {
+      document.getElementById('previewModal').style.display = 'none';
+    }
+
+    // Close preview on background click
+    document.getElementById('previewModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closePreview();
+      }
+    });
+
+    // Close preview on ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closePreview();
+      }
     });
   </script>
 </body>
