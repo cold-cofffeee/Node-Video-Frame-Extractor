@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: video-frame-extractor
+    env: node
+    buildCommand: chmod +x render-build.sh && ./render-build.sh
+    startCommand: node app.js
+    envVars:
+      - key: NODE_VERSION
+        value: 18.17.0
