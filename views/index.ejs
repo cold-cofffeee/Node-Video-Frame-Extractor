@@ -4,90 +4,343 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Video Frame Extractor - Upload Video</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    .main-container {
-      padding: 50px 20px;
-    }
-    .upload-card {
-      max-width: 600px;
-      margin: 0 auto;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    }
-    .card-header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 30px;
-      text-align: center;
-    }
-    .card-header h1 {
+    * {
       margin: 0;
-      font-size: 2rem;
-      font-weight: bold;
+      padding: 0;
+      box-sizing: border-box;
     }
-    .card-header p {
-      margin: 10px 0 0;
-      opacity: 0.9;
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      background: #FFFFFF;
+      color: #111827;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    .upload-icon {
-      font-size: 64px;
-      margin-bottom: 20px;
+
+    /* Header */
+    header {
+      background: #FFFFFF;
+      border-bottom: 1px solid #E5E7EB;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 64px;
     }
-    .file-input-wrapper {
-      position: relative;
-      overflow: hidden;
-      display: inline-block;
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .logo-section:hover {
+      opacity: 0.8;
+    }
+
+    .logo-section svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .logo-text {
+      font-size: 18px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .header-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .header-links a {
+      color: #4B5563;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+
+    .header-links a:hover {
+      color: #2563EB;
+    }
+
+    /* Main Content */
+    main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 24px;
       width: 100%;
     }
-    .file-input-wrapper input[type=file] {
-      position: absolute;
-      left: -9999px;
+
+    .hero-section {
+      text-align: center;
+      margin-bottom: 48px;
     }
+
+    .hero-section h1 {
+      font-size: 36px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .hero-section p {
+      font-size: 16px;
+      color: #4B5563;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Upload Card */
+    .upload-card {
+      max-width: 680px;
+      margin: 0 auto;
+      background: #F9FAFB;
+      border: 1px solid #E5E7EB;
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Drag & Drop Area */
+    .file-input-wrapper {
+      position: relative;
+      margin-bottom: 24px;
+    }
+
+    .file-input-wrapper input[type="file"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
     .file-input-label {
+      display: block;
+      padding: 48px 24px;
+      background: #FFFFFF;
+      border: 2px dashed #D1D5DB;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+    }
+
+    .file-input-label:hover {
+      border-color: #2563EB;
+      background: #EFF6FF;
+    }
+
+    .file-input-label.active {
+      border-color: #2563EB;
+      background: #EFF6FF;
+      border-style: solid;
+    }
+
+    .upload-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 16px;
+    }
+
+    .upload-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: #9CA3AF;
+    }
+
+    .file-input-label:hover .upload-icon svg,
+    .file-input-label.active .upload-icon svg {
+      stroke: #2563EB;
+    }
+
+    .upload-text strong {
+      color: #111827;
+      font-weight: 600;
+    }
+
+    .upload-text {
+      color: #4B5563;
+      font-size: 14px;
+    }
+
+    .file-info {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #9CA3AF;
+    }
+
+    .file-name {
+      margin-top: 12px;
+      padding: 12px 16px;
+      background: #F3F4F6;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #111827;
+      display: none;
+    }
+
+    .file-name.show {
+      display: block;
+    }
+
+    .file-name svg {
+      width: 16px;
+      height: 16px;
+      vertical-align: middle;
+      margin-right: 8px;
+      stroke: #16A34A;
+    }
+
+    /* Frame Rate Control */
+    .control-group {
+      margin-bottom: 24px;
+    }
+
+    .control-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      background: #FFFFFF;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .radio-option:hover {
+      border-color: #2563EB;
+      background: #F9FAFB;
+    }
+
+    .radio-option input[type="radio"] {
+      margin: 0;
+      margin-right: 12px;
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: #2563EB;
+    }
+
+    .radio-option label {
+      flex: 1;
+      cursor: pointer;
+      font-size: 14px;
+      color: #111827;
+      font-weight: 500;
+    }
+
+    .radio-option.checked {
+      border-color: #2563EB;
+      background: #EFF6FF;
+    }
+
+    .help-text {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #9CA3AF;
+    }
+
+    /* Submit Button */
+    .btn-submit {
+      width: 100%;
+      height: 48px;
+      background: #2563EB;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 60px 20px;
-      background: #f8f9fa;
-      border: 3px dashed #dee2e6;
-      border-radius: 15px;
-      cursor: pointer;
-      transition: all 0.3s;
+      gap: 8px;
     }
-    .file-input-label:hover {
-      background: #e9ecef;
-      border-color: #667eea;
+
+    .btn-submit:hover:not(:disabled) {
+      background: #1D4ED8;
     }
-    .file-input-label.active {
-      background: #e7f3ff;
-      border-color: #667eea;
+
+    .btn-submit:disabled {
+      background: #D1D5DB;
+      cursor: not-allowed;
     }
-    .file-name {
-      margin-top: 10px;
-      font-weight: 500;
-      color: #667eea;
+
+    /* Features Section */
+    .features {
+      margin-top: 64px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
     }
-    .btn-submit {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border: none;
-      padding: 15px;
-      font-size: 1.1rem;
+
+    .feature-item {
+      text-align: center;
+      padding: 24px;
+    }
+
+    .feature-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .feature-title {
+      font-size: 16px;
       font-weight: 600;
-      border-radius: 10px;
-      transition: transform 0.2s;
+      color: #111827;
+      margin-bottom: 4px;
     }
-    .btn-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+
+    .feature-desc {
+      font-size: 14px;
+      color: #4B5563;
     }
+
+    /* Loading Overlay */
     .loading-overlay {
       display: none;
       position: fixed;
@@ -95,137 +348,288 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0,0,0,0.8);
+      background: rgba(255, 255, 255, 0.95);
       z-index: 9999;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
     }
+
+    .loading-overlay.show {
+      display: flex;
+    }
+
     .loading-content {
       text-align: center;
-      color: white;
     }
+
     .spinner {
-      width: 80px;
-      height: 80px;
-      border: 8px solid rgba(255,255,255,0.2);
-      border-top-color: #667eea;
+      width: 64px;
+      height: 64px;
+      border: 4px solid #E5E7EB;
+      border-top-color: #2563EB;
       border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 20px;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 24px;
     }
+
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-    .features {
-      margin-top: 30px;
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      gap: 15px;
+
+    .loading-content h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 8px;
     }
-    .feature-item {
+
+    .loading-content p {
+      font-size: 14px;
+      color: #4B5563;
+    }
+
+    /* Footer */
+    footer {
+      background: #F9FAFB;
+      border-top: 1px solid #E5E7EB;
+      padding: 24px;
       text-align: center;
-      color: white;
-      flex: 1;
-      min-width: 150px;
     }
-    .feature-icon {
-      font-size: 2rem;
-      margin-bottom: 10px;
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #4B5563;
+    }
+
+    .footer-logo svg {
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .header-content {
+        padding: 0 16px;
+      }
+
+      .header-links {
+        gap: 16px;
+      }
+
+      .logo-text {
+        font-size: 16px;
+      }
+
+      main {
+        padding: 32px 16px;
+      }
+
+      .hero-section h1 {
+        font-size: 28px;
+      }
+
+      .upload-card {
+        padding: 24px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="main-container">
-    <div class="upload-card card">
-      <div class="card-header">
-        <div class="upload-icon">🎬</div>
-        <h1>Video Frame Extractor</h1>
-        <p>Extract frames from your video in seconds</p>
-      </div>
-      <div class="card-body p-4">
-        <form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">
-          <div class="mb-4">
-            <div class="file-input-wrapper">
-              <input type="file" name="video" id="videoInput" accept="video/*" required>
-              <label for="videoInput" class="file-input-label" id="fileLabel">
-                <div class="text-center">
-                  <i class="bi bi-cloud-upload" style="font-size: 3rem; color: #667eea;"></i>
-                  <div class="mt-3">
-                    <strong>Click to upload</strong> or drag and drop
-                    <div class="text-muted small mt-2">MP4, MOV, AVI, MKV, WebM (Max 100MB)</div>
-                  </div>
-                </div>
-              </label>
-              <div class="file-name" id="fileName"></div>
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <a href="/" class="logo-section">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect x="2" y="6" width="28" height="20" rx="2" stroke="#2563EB" stroke-width="2" fill="none"/>
+          <rect x="4" y="9" width="2" height="2" fill="#2563EB"/>
+          <rect x="4" y="14" width="2" height="2" fill="#2563EB"/>
+          <rect x="4" y="19" width="2" height="2" fill="#2563EB"/>
+          <rect x="26" y="9" width="2" height="2" fill="#2563EB"/>
+          <rect x="26" y="14" width="2" height="2" fill="#2563EB"/>
+          <rect x="26" y="19" width="2" height="2" fill="#2563EB"/>
+          <rect x="13" y="11" width="6" height="5" rx="1" fill="#2563EB"/>
+          <line x1="11" y1="8" x2="11" y2="24" stroke="#2563EB" stroke-width="1.5"/>
+          <line x1="21" y1="8" x2="21" y2="24" stroke="#2563EB" stroke-width="1.5"/>
+        </svg>
+        <span class="logo-text">Video Frame Extractor</span>
+      </a>
+      <nav class="header-links">
+        <a href="https://github.com/cold-cofffeee/Node-video-frame-extractor" target="_blank">GitHub</a>
+        <a href="#features">Features</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <h1>Extract frames from your videos</h1>
+      <p>Upload a video file and extract individual frames with customizable frame rates. Fast, secure, and simple.</p>
+    </section>
+
+    <!-- Upload Card -->
+    <div class="upload-card">
+      <form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">
+        <!-- File Upload -->
+        <div class="file-input-wrapper">
+          <input type="file" name="video" id="videoInput" accept="video/*" required>
+          <label for="videoInput" class="file-input-label" id="fileLabel">
+            <div class="upload-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+            </div>
+            <div class="upload-text">
+              <strong>Click to upload</strong> or drag and drop
+            </div>
+            <div class="file-info">
+              MP4, MOV, AVI, MKV, WebM, FLV, 3GP (Max 100MB)
+            </div>
+          </label>
+          <div class="file-name" id="fileName">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span id="fileNameText"></span>
+          </div>
+        </div>
+
+        <!-- Frame Rate Selection -->
+        <div class="control-group">
+          <label class="control-label">Frame Extraction Rate</label>
+          <div class="radio-group">
+            <div class="radio-option checked" data-value="all">
+              <input type="radio" name="frameRate" value="all" id="rate-all" checked>
+              <label for="rate-all">Extract All Frames (Highest Quality)</label>
+            </div>
+            <div class="radio-option" data-value="10">
+              <input type="radio" name="frameRate" value="10" id="rate-10">
+              <label for="rate-10">10 Frames Per Second</label>
+            </div>
+            <div class="radio-option" data-value="5">
+              <input type="radio" name="frameRate" value="5" id="rate-5">
+              <label for="rate-5">5 Frames Per Second</label>
+            </div>
+            <div class="radio-option" data-value="2">
+              <input type="radio" name="frameRate" value="2" id="rate-2">
+              <label for="rate-2">2 Frames Per Second</label>
+            </div>
+            <div class="radio-option" data-value="1">
+              <input type="radio" name="frameRate" value="1" id="rate-1">
+              <label for="rate-1">1 Frame Per Second</label>
             </div>
           </div>
-
-          <div class="mb-4">
-            <label class="form-label fw-bold">Frame Extraction Rate</label>
-            <select name="frameRate" class="form-select form-select-lg" required>
-              <option value="all" selected>Extract All Frames (Highest Quality)</option>
-              <option value="10">10 Frames Per Second</option>
-              <option value="5">5 Frames Per Second</option>
-              <option value="2">2 Frames Per Second</option>
-              <option value="1">1 Frame Per Second</option>
-            </select>
-            <div class="form-text">Select how many frames to extract. "All Frames" gives the most frames.</div>
+          <div class="help-text">
+            Higher frame rates produce more frames. "All Frames" extracts every single frame from the video.
           </div>
+        </div>
 
-          <button type="submit" class="btn btn-primary btn-submit w-100">
-            <i class="bi bi-scissors"></i> Extract Frames
-          </button>
-        </form>
-      </div>
+        <!-- Submit Button -->
+        <button type="submit" class="btn-submit" id="submitBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          Extract Frames
+        </button>
+      </form>
     </div>
 
-    <div class="features">
+    <!-- Features -->
+    <section class="features" id="features">
       <div class="feature-item">
         <div class="feature-icon">⚡</div>
-        <div><strong>Fast Processing</strong></div>
-        <small>Extract frames in seconds</small>
+        <div class="feature-title">Fast Processing</div>
+        <div class="feature-desc">Extract frames in seconds with FFmpeg</div>
       </div>
       <div class="feature-item">
         <div class="feature-icon">📦</div>
-        <div><strong>Bulk Download</strong></div>
-        <small>Download all frames as ZIP</small>
+        <div class="feature-title">Bulk Download</div>
+        <div class="feature-desc">Download all frames as a single ZIP file</div>
       </div>
       <div class="feature-item">
         <div class="feature-icon">🎯</div>
-        <div><strong>Customizable</strong></div>
-        <small>Choose extraction rate</small>
+        <div class="feature-title">Customizable Rates</div>
+        <div class="feature-desc">Choose extraction rate from 1fps to all frames</div>
       </div>
       <div class="feature-item">
         <div class="feature-icon">🔒</div>
-        <div><strong>Secure</strong></div>
-        <small>Auto-cleanup after 1 hour</small>
+        <div class="feature-title">Secure & Private</div>
+        <div class="feature-desc">Auto-cleanup after 1 hour, no data stored</div>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <span class="footer-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" fill="none">
+          <rect x="2" y="6" width="28" height="20" rx="2" stroke="#2563EB" stroke-width="2" fill="none"/>
+          <rect x="4" y="9" width="2" height="2" fill="#2563EB"/>
+          <rect x="4" y="14" width="2" height="2" fill="#2563EB"/>
+          <rect x="4" y="19" width="2" height="2" fill="#2563EB"/>
+          <rect x="26" y="9" width="2" height="2" fill="#2563EB"/>
+          <rect x="26" y="14" width="2" height="2" fill="#2563EB"/>
+          <rect x="26" y="19" width="2" height="2" fill="#2563EB"/>
+          <rect x="13" y="11" width="6" height="5" rx="1" fill="#2563EB"/>
+          <line x1="11" y1="8" x2="11" y2="24" stroke="#2563EB" stroke-width="1.5"/>
+          <line x1="21" y1="8" x2="21" y2="24" stroke="#2563EB" stroke-width="1.5"/>
+        </svg>
+      </span>
+      <span>© 2026 Video Frame Extractor • Made by Hiranmay Roy</span>
+    </div>
+  </footer>
+
+  <!-- Loading Overlay -->
   <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-content">
       <div class="spinner"></div>
-      <h3>Processing your video...</h3>
-      <p>This may take a moment depending on video size</p>
+      <h3>Processing your video</h3>
+      <p>Extracting frames... This may take a moment</p>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     const videoInput = document.getElementById('videoInput');
     const fileLabel = document.getElementById('fileLabel');
     const fileName = document.getElementById('fileName');
+    const fileNameText = document.getElementById('fileNameText');
     const uploadForm = document.getElementById('uploadForm');
     const loadingOverlay = document.getElementById('loadingOverlay');
+    const submitBtn = document.getElementById('submitBtn');
 
     // File selection handling
     videoInput.addEventListener('change', function() {
       if (this.files && this.files[0]) {
         const file = this.files[0];
         const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
-        fileName.textContent = `✓ ${file.name} (${sizeMB} MB)`;
+        fileNameText.textContent = `${file.name} (${sizeMB} MB)`;
+        fileName.classList.add('show');
         fileLabel.classList.add('active');
       }
     });
@@ -237,31 +641,48 @@
     });
 
     fileLabel.addEventListener('dragleave', function() {
-      this.classList.remove('active');
+      if (!videoInput.files.length) {
+        this.classList.remove('active');
+      }
     });
 
     fileLabel.addEventListener('drop', function(e) {
       e.preventDefault();
-      this.classList.remove('active');
       
       if (e.dataTransfer.files && e.dataTransfer.files[0]) {
         videoInput.files = e.dataTransfer.files;
         const file = e.dataTransfer.files[0];
         const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
-        fileName.textContent = `✓ ${file.name} (${sizeMB} MB)`;
-        fileLabel.classList.add('active');
+        fileNameText.textContent = `${file.name} (${sizeMB} MB)`;
+        fileName.classList.add('show');
+        this.classList.add('active');
       }
+    });
+
+    // Radio button styling
+    document.querySelectorAll('.radio-option').forEach(option => {
+      option.addEventListener('click', function() {
+        document.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('checked'));
+        this.classList.add('checked');
+        this.querySelector('input[type="radio"]').checked = true;
+      });
     });
 
     // Form submission
     uploadForm.addEventListener('submit', function(e) {
       const file = videoInput.files[0];
-      if (file && file.size > 100 * 1024 * 1024) {
+      if (!file) {
+        e.preventDefault();
+        alert('Please select a video file');
+        return;
+      }
+      if (file.size > 100 * 1024 * 1024) {
         e.preventDefault();
         alert('File size must be less than 100MB');
         return;
       }
-      loadingOverlay.style.display = 'flex';
+      submitBtn.disabled = true;
+      loadingOverlay.classList.add('show');
     });
   </script>
 </body>

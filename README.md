@@ -1,242 +1,140 @@
-# 🎬 Video Frame Extractor# 🎥 Video Frame Extractor (Node.js + Express + FFmpeg)
+# 🎥 Video Frame Extractor
 
+<div align="center">
 
+A modern, user-friendly web application to extract frames from videos with ease. Built with Node.js, Express, and FFmpeg.
 
-<div align="center">A lightweight **Node.js + Express** web app that lets users upload a video (under 100MB), extracts **all its frames using FFmpeg**, and allows downloading them individually or as a ZIP file.
-
-
-
-![License](https://img.shields.io/badge/license-MIT-blue.svg)---
-
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Node](https://img.shields.io/badge/node-%3E%3D14.0.0-brightgreen.svg)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
-![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)## 🚀 Features
+[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Technologies](#-technologies) • [Deployment](#-deployment) • [Contributing](#-contributing)
 
-- Upload any video (max 100MB)
+</div>
 
-A modern, user-friendly web application to extract frames from videos with ease. Built with Node.js, Express, and FFmpeg.- Automatically extract all frames using FFmpeg
+---
 
-- View frames directly in browser
+## ✨ Features
 
-[Features](#-features) • [Demo](#-demo) • [Installation](#-installation) • [Usage](#-usage) • [Technologies](#-technologies) • [Contributing](#-contributing)- Download individual frames or all in one ZIP
-
-- Bootstrap 5 responsive design (via CDN)
-
-</div>- Simple, fast, no database required
-
-
-
-------
-
-
-
-## 📸 Screenshots## 🧰 Tech Stack
-
-- **Node.js** + **Express**
-
-> Add screenshots of your application here to showcase the UI- **EJS** for templating
-
-- **Bootstrap 5 (CDN)**
-
----- **FFmpeg** for frame extraction
-
-- **Archiver** for ZIP downloads
-
-## ✨ Features- **UUID** for unique session directories
-
-
-
-### Core Functionality---
+### Core Functionality
 
 - 🎥 **Video Upload** - Support for multiple video formats (MP4, MOV, AVI, MKV, WebM, FLV, 3GP)
-
-- 🖼️ **Frame Extraction** - Powered by FFmpeg for high-quality frame extraction## 🛠️ Installation
-
+- 🖼️ **Frame Extraction** - Powered by FFmpeg for high-quality frame extraction
 - ⚡ **Customizable Frame Rate** - Extract all frames or choose specific rates (1fps, 2fps, 5fps, 10fps)
+- 📦 **Bulk Download** - Download all extracted frames as a single ZIP file
+- 💾 **Individual Downloads** - Download frames one by one if needed
 
-- 📦 **Bulk Download** - Download all extracted frames as a single ZIP file### 1. Clone the repository
+### User Experience
 
-- 💾 **Individual Downloads** - Download frames one by one if needed```bash
-
-git clone https://github.com/cold-cofffeee/Node-video-frame-extractor.git
-
-### User Experiencecd Node-video-frame-extractor
-
-- 🎨 **Modern UI** - Beautiful gradient design with smooth animations````
-
+- 🎨 **Modern UI** - Beautiful gradient design with smooth animations
 - 📱 **Fully Responsive** - Works perfectly on desktop, tablet, and mobile devices
-
-- 🔄 **Real-time Feedback** - Loading indicators and progress feedback### 2. Install dependencies
-
+- 🔄 **Real-time Feedback** - Loading indicators and progress feedback
 - 🖱️ **Drag & Drop** - Intuitive drag-and-drop file upload
+- 📊 **Statistics Display** - See frame count and session details
 
-- 📊 **Statistics Display** - See frame count and session details```bash
-
-npm install
-
-### Technical Features```
+### Technical Features
 
 - 🧹 **Auto Cleanup** - Automatic deletion of old files after 1 hour
-
-- 🔒 **File Validation** - MIME type checking and file size limits (max 100MB)### 3. Install FFmpeg
-
+- 🔒 **File Validation** - MIME type checking and file size limits (max 100MB)
 - ⚠️ **Error Handling** - Comprehensive error handling with user-friendly messages
-
-- 🆔 **Unique Sessions** - UUID-based session management for concurrent usersDownload and install FFmpeg, then add it to your system PATH.
-
+- 🆔 **Unique Sessions** - UUID-based session management for concurrent users
 - 🚀 **Performance** - Efficient streaming for large ZIP downloads
-
-Check installation:
-
----
-
-```bash
-
-## 🚀 Demoffmpeg -version
-
-```
-
-Try it out: [Live Demo](#) *(Add your deployment link here)*
-
-If that shows version info, you're good.
+- 💻 **Cross-Platform** - Works on Windows, macOS, and Linux with automatic FFmpeg detection
 
 ---
-
-### 4. Start the server
 
 ## 🛠️ Technologies
 
-```bash
+### Backend
 
-### Backendnode app.js
-
-- **Node.js** - JavaScript runtime```
-
+- **Node.js** - JavaScript runtime
 - **Express** - Web application framework
-
-- **FFmpeg** - Video processing engineThen open your browser:
-
+- **FFmpeg** - Video processing engine (automatically detected)
 - **Archiver** - ZIP file creation
+- **Express-FileUpload** - File upload middleware
 
-- **Express-FileUpload** - File upload middleware```
-
-http://localhost:3000
-
-### Frontend```
+### Frontend
 
 - **EJS** - Templating engine
-
-- **Bootstrap 5** - UI framework---
-
+- **Bootstrap 5** - UI framework
 - **Bootstrap Icons** - Icon library
+- **Vanilla JavaScript** - Client-side interactivity
 
-- **Vanilla JavaScript** - Client-side interactivity## 📁 Project Structure
+### Utilities
 
+- **fs-extra** - Enhanced file system operations
+- **UUID** - Unique identifier generation
 
+---
 
-### Utilities```
+## 📋 Prerequisites
 
-- **fs-extra** - Enhanced file system operationsvideo-frame-extractor/
+Before you begin, ensure you have the following installed:
 
-- **UUID** - Unique identifier generation├── app.js
+- **Node.js** (v14.0.0 or higher) - [Download here](https://nodejs.org/)
+- **FFmpeg** - [Download here](https://ffmpeg.org/download.html) or use local copy
+- **npm** or **yarn** - Comes with Node.js
 
-├── package.json
+### Installing FFmpeg
 
----├── .gitignore
-
-├── README.md
-
-## 📋 Prerequisites├── public/
-
-│   ├── uploads/
-
-Before you begin, ensure you have the following installed:│   └── frames/
-
-└── views/
-
-- **Node.js** (v14.0.0 or higher) - [Download here](https://nodejs.org/)    ├── index.ejs
-
-- **FFmpeg** - [Download here](https://ffmpeg.org/download.html)    └── result.ejs
-
-- **npm** or **yarn** - Comes with Node.js```
-
-
-
-### Installing FFmpeg---
-
-
-
-#### Windows## 🌐 SEO Metadata (for GitHub)
+#### Option 1: Use Local FFmpeg (Windows) ⭐ Recommended for Local Development
 
 1. Download FFmpeg from [ffmpeg.org](https://ffmpeg.org/download.html)
+2. Extract and place `ffmpeg.exe`, `ffplay.exe`, and `ffprobe.exe` in a `ffmpeg` folder in the project directory
+3. The application will automatically detect and use the local FFmpeg
+4. **Note:** The `ffmpeg` folder is in `.gitignore` and won't be pushed to GitHub
 
-2. Extract the ZIP file**Repository name:** `video-frame-extractor`
+#### Option 2: System-Wide Installation
 
-3. Add the `bin` folder to your system PATH**Description:** Upload a video and extract all frames instantly using Node.js, Express, and FFmpeg.
+**Windows:**
+1. Download FFmpeg from [ffmpeg.org](https://ffmpeg.org/download.html)
+2. Extract the ZIP file
+3. Add the `bin` folder to your system PATH
+4. Verify installation: `ffmpeg -version`
 
-4. Verify installation: `ffmpeg -version`**Topics:** `nodejs`, `express`, `ffmpeg`, `video-processing`, `frame-extraction`, `bootstrap`, `zip-download`, `ejs`, `javascript`.
-
-
-
-#### macOS---
-
+**macOS:**
 ```bash
-
-brew install ffmpeg## ⚙️ Optional Improvements
-
+brew install ffmpeg
 ```
 
-* Add progress bar during extraction (via WebSocket)
-
-#### Linux (Ubuntu/Debian)* Auto-delete old uploads after N hours
-
-```bash* Extract every Nth frame for performance
-
-sudo apt update* Deploy to **Render**, **Vercel**, or **Railway**
-
+**Linux (Ubuntu/Debian):**
+```bash
+sudo apt update
 sudo apt install ffmpeg
-
-```---
-
-
-
-Verify FFmpeg installation:## 🧑‍💻 Author
-
-```bash
-
-ffmpeg -version**Hiranmay Roy**
-
 ```
 
-> Engineering student, programmer & philosopher.
-
----> Passionate about combining logic, design, and simplicity.
-
-
-
-## 🔧 Installation---
-
-
-
-### 1. Clone the repository## 🪪 License
-
-```bash
-
-git clone https://github.com/yourusername/video-frame-extractor.gitMIT License © 2025 Hiranmay Roy
-cd video-frame-extractor
-```
-
-### 2. Install dependencies
-```bash
-npm install
-```
-
-### 3. Verify FFmpeg installation
+Verify FFmpeg installation:
 ```bash
 ffmpeg -version
 ```
 
+---
+
+## 🔧 Installation
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/cold-cofffeee/Node-video-frame-extractor.git
+cd Node-video-frame-extractor
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Set up FFmpeg
+
+Choose either Option 1 (local FFmpeg) or Option 2 (system-wide) from the [Prerequisites](#installing-ffmpeg) section above.
+
+The application automatically detects:
+- ✅ Local `ffmpeg.exe` in the `ffmpeg` folder (Windows)
+- ✅ System-wide FFmpeg in PATH (all platforms)
+
 ### 4. Start the application
+
 ```bash
 npm start
 ```
@@ -248,6 +146,7 @@ npm run dev
 ```
 
 ### 5. Open your browser
+
 Navigate to: `http://localhost:3000`
 
 ---
@@ -300,6 +199,12 @@ video-frame-extractor/
 ├── app.js                 # Main application file
 ├── package.json           # Project dependencies
 ├── README.md             # Documentation
+├── render-build.sh       # Render.com build script
+├── render.yaml           # Render.com configuration
+├── ffmpeg/               # Local FFmpeg (optional, gitignored)
+│   ├── ffmpeg.exe
+│   ├── ffplay.exe
+│   └── ffprobe.exe
 ├── views/                # EJS templates
 │   ├── index.ejs        # Upload page
 │   ├── result.ejs       # Results page
@@ -313,7 +218,25 @@ video-frame-extractor/
 
 ## 🌐 Deployment
 
-### Deploy to Heroku
+### Deploy to Render.com
+
+This project is configured for easy deployment on Render.com:
+
+1. Fork or push this repository to GitHub
+2. Create a new Web Service on [Render.com](https://render.com)
+3. Connect your GitHub repository
+4. Render will automatically use `render.yaml` configuration
+5. The `render-build.sh` script will install FFmpeg automatically
+6. Deploy!
+
+**What happens on Render:**
+- ✅ FFmpeg installed via `apt-get` (Linux)
+- ✅ Application uses system FFmpeg from PATH
+- ✅ No local `ffmpeg` folder needed (it's gitignored)
+
+### Deploy to Other Platforms
+
+#### Heroku
 
 1. Create a Heroku app:
 ```bash
@@ -330,18 +253,11 @@ heroku buildpacks:add --index 1 https://github.com/jonathanong/heroku-buildpack-
 git push heroku main
 ```
 
-### Deploy to Railway
+#### Railway
 
 1. Connect your GitHub repository
 2. Add FFmpeg build command in Railway dashboard
 3. Deploy automatically
-
-### Deploy to Render
-
-1. Create a new Web Service
-2. Add build command: `npm install`
-3. Add FFmpeg: Install via Render's package manager
-4. Deploy
 
 ---
 
@@ -402,7 +318,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Engineering student, programmer & philosopher. Passionate about combining logic, design, and simplicity.
 
-- GitHub: [@yourusername](https://github.com/yourusername)
+- GitHub: [@cold-cofffeee](https://github.com/cold-cofffeee)
 - Feel free to connect and contribute!
 
 ---
@@ -427,165 +343,3 @@ Made with ❤️ by Hiranmay Roy
 
 If you found this project helpful, please consider giving it a ⭐!
 </div>
-
-
-# 🎉 Project Improvements Summary
-
-## What Was Fixed
-
-### Critical Bug Fix - ZIP Download Issue ✅
-**Problem:** The ZIP download was hanging and never completing.
-
-**Root Cause:** The archive was being piped to a file stream first, then trying to send to the response after the file was created. This caused streaming issues and delays.
-
-**Solution:** 
-- Changed to direct streaming: Archive pipes directly to the HTTP response
-- Set proper HTTP headers before streaming
-- Removed intermediate file creation (no temporary ZIP file)
-- Added proper error handling and warnings
-- Result: Downloads now start immediately and complete successfully
-
-## New Features Added
-
-### 1. Frame Rate Selection ⚡
-- Users can now choose extraction rates:
-  - Extract All Frames (highest quality)
-  - 10 fps, 5 fps, 2 fps, or 1 fps
-- Uses FFmpeg's fps filter for precise control
-- Reduces processing time for lower frame rates
-
-### 2. Automatic Cleanup 🧹
-- Sessions automatically deleted after 1 hour
-- Runs cleanup every 30 minutes
-- Prevents disk space issues
-- Cleans both uploads and extracted frames
-
-### 3. Comprehensive Error Handling ⚠️
-- Dedicated error page with friendly messages
-- Validates file types (MIME type checking)
-- File size validation (100MB limit)
-- FFmpeg error handling
-- User-friendly error messages
-
-### 4. Modern UI/UX 🎨
-- Beautiful gradient design (purple theme)
-- Drag & drop file upload
-- Loading spinners during processing
-- Real-time file size display
-- Responsive design (mobile, tablet, desktop)
-- Smooth animations and transitions
-- Statistics display (frame count, format, availability)
-
-### 5. Enhanced User Experience 📱
-- File validation before upload
-- Visual feedback during processing
-- Frame gallery with thumbnails
-- Individual frame download buttons
-- Bulk ZIP download with loading indicator
-- "Extract New Video" button for quick restart
-
-## Technical Improvements
-
-### Code Quality
-- Added proper middleware configuration
-- Improved error handling throughout
-- Better code organization
-- Added comments for clarity
-- Environment variable support for PORT
-
-### Security
-- MIME type validation
-- File size limits
-- Input sanitization
-- UUID-based session isolation
-- Automatic cleanup of old files
-
-### Performance
-- Efficient streaming for ZIP downloads
-- Lazy loading for frame images
-- Cleanup old sessions automatically
-- Removed intermediate file creation for ZIPs
-
-## Documentation
-
-### Updated README.md
-- Professional formatting with badges
-- Comprehensive feature list
-- Installation instructions for all platforms
-- Usage guide with screenshots section
-- Deployment guides (Heroku, Railway, Render)
-- Security considerations
-- Contributing guidelines
-- Repository tags for GitHub
-
-### Updated package.json
-- Proper project name and description
-- Keywords for npm/GitHub discoverability
-- Start and dev scripts
-- Repository information
-- MIT license
-- Engine requirements
-
-### New Files Created
-- `LICENSE` - MIT License
-- `.gitkeep` files for empty directories
-- `error.ejs` - Error page template
-
-## What's Ready for GitHub
-
-### Repository Structure
-```
-video-frame-extractor/
-├── app.js              # ✨ Enhanced with all features
-├── package.json        # ✨ Professional metadata
-├── README.md           # ✨ Comprehensive documentation
-├── LICENSE             # ✨ MIT License
-├── .gitignore          # Keeps repo clean
-├── views/
-│   ├── index.ejs      # ✨ Beautiful upload page
-│   ├── result.ejs     # ✨ Modern results gallery
-│   └── error.ejs      # ✨ New error page
-└── public/
-    ├── uploads/       # .gitkeep added
-    └── frames/        # .gitkeep added
-```
-
-### Ready to Publish! 🚀
-
-Your app is now production-ready with:
-- ✅ All bugs fixed
-- ✅ Modern, professional UI
-- ✅ Comprehensive features
-- ✅ Great documentation
-- ✅ Security best practices
-- ✅ Error handling
-- ✅ Auto cleanup
-- ✅ Mobile responsive
-
-### Before Publishing to GitHub:
-
-1. Update package.json:
-   - Change "author" to your name
-   - Update repository URL
-
-2. Update README.md:
-   - Replace "yourusername" with your GitHub username
-   - Add live demo link when deployed
-   - Add screenshots of the app
-
-3. Test the app:
-   ```bash
-   npm start
-   ```
-
-4. Create GitHub repository and push:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit: Video Frame Extractor v2.0"
-   git branch -M main
-   git remote add origin https://github.com/yourusername/video-frame-extractor.git
-   git push -u origin main
-   ```
-
-Enjoy your upgraded project! 🎉
