@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const { exec } = require("child_process");
@@ -11,7 +12,12 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const app = express();
 
 // Gemini AI Configuration
-const GEMINI_API_KEY = "AIzaSyCdmCuRGYR5rbhFbISfp9NmawoWzI7ODBE";
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+if (!GEMINI_API_KEY) {
+  console.error('❌ Error: GEMINI_API_KEY not found in environment variables');
+  console.error('📝 Please create a .env file with your API key (see .env.example)');
+  process.exit(1);
+}
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
 // Set FFmpeg path

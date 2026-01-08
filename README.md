@@ -74,6 +74,7 @@ Before you begin, ensure you have the following installed:
 - **Node.js** (v14.0.0 or higher) - [Download here](https://nodejs.org/)
 - **FFmpeg** - [Download here](https://ffmpeg.org/download.html) or use local copy
 - **npm** or **yarn** - Comes with Node.js
+- **Google Gemini API Key** - Required for AI-powered features ([Get API Key](https://makersuite.google.com/app/apikey))
 
 ### Installing FFmpeg
 
@@ -125,7 +126,41 @@ cd Node-video-frame-extractor
 npm install
 ```
 
-### 3. Set up FFmpeg
+### 3. Configure Environment Variables 🔐
+
+**IMPORTANT:** This step is required for the application to work.
+
+Create a `.env` file in the root directory by copying the example:
+
+```bash
+# Windows
+copy .env.example .env
+
+# macOS/Linux
+cp .env.example .env
+```
+
+Edit the `.env` file and add your Google Gemini API key:
+
+```env
+GEMINI_API_KEY=your_actual_api_key_here
+PORT=3000
+NODE_ENV=development
+```
+
+**How to get your Gemini API key:**
+1. Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
+2. Sign in with your Google account
+3. Click "Create API Key"
+4. Copy the key and paste it in your `.env` file
+
+⚠️ **SECURITY WARNING:** 
+- Never commit your `.env` file to version control
+- Never share your API key publicly
+- The `.env` file is already in `.gitignore` for your protection
+- When deploying, use environment variables instead of committing the `.env` file
+
+### 4. Set up FFmpeg
 
 Choose either Option 1 (local FFmpeg) or Option 2 (system-wide) from the [Prerequisites](#installing-ffmpeg) section above.
 
@@ -133,7 +168,7 @@ The application automatically detects:
 - ✅ Local `ffmpeg.exe` in the `ffmpeg` folder (Windows)
 - ✅ System-wide FFmpeg in PATH (all platforms)
 
-### 4. Start the application
+### 5. Start the application
 
 ```bash
 npm start
@@ -145,7 +180,7 @@ npm run dev
 # Note: You'll need to install nodemon: npm install -g nodemon
 ```
 
-### 5. Open your browser
+### 6. Open your browser
 
 Navigate to: `http://localhost:3000`
 
@@ -225,14 +260,19 @@ This project is configured for easy deployment on Render.com:
 1. Fork or push this repository to GitHub
 2. Create a new Web Service on [Render.com](https://render.com)
 3. Connect your GitHub repository
-4. Render will automatically use `render.yaml` configuration
-5. The `render-build.sh` script will install FFmpeg automatically
-6. Deploy!
+4. **Add Environment Variables** in Render Dashboard:
+   - Go to "Environment" section
+   - Add `GEMINI_API_KEY` with your actual API key
+   - Add `NODE_ENV=production`
+5. Render will automatically use `render.yaml` configuration
+6. The `render-build.sh` script will install FFmpeg automatically
+7. Deploy!
 
 **What happens on Render:**
 - ✅ FFmpeg installed via `apt-get` (Linux)
 - ✅ Application uses system FFmpeg from PATH
 - ✅ No local `ffmpeg` folder needed (it's gitignored)
+- ✅ Environment variables securely stored in Render
 
 ### Deploy to Other Platforms
 
@@ -243,12 +283,18 @@ This project is configured for easy deployment on Render.com:
 heroku create your-app-name
 ```
 
-2. Add FFmpeg buildpack:
+2. Set environment variables:
+```bash
+heroku config:set GEMINI_API_KEY=your_actual_api_key_here
+heroku config:set NODE_ENV=production
+```
+
+3. Add FFmpeg buildpack:
 ```bash
 heroku buildpacks:add --index 1 https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git
 ```
 
-3. Deploy:
+4. Deploy:
 ```bash
 git push heroku main
 ```
@@ -256,8 +302,11 @@ git push heroku main
 #### Railway
 
 1. Connect your GitHub repository
-2. Add FFmpeg build command in Railway dashboard
-3. Deploy automatically
+2. Add environment variables in Railway dashboard:
+   - `GEMINI_API_KEY=your_actual_api_key_here`
+   - `NODE_ENV=production`
+3. Add FFmpeg build command in Railway dashboard
+4. Deploy automatically
 
 ---
 
