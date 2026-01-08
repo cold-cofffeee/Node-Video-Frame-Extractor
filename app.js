@@ -7,6 +7,14 @@ const archiver = require("archiver");
 const { v4: uuidv4 } = require("uuid");
 
 const app = express();
+
+// Set FFmpeg path - check local ffmpeg directory first, then system PATH
+const FFMPEG_PATH = fs.existsSync(path.join(__dirname, 'ffmpeg', 'ffmpeg.exe')) 
+  ? path.join(__dirname, 'ffmpeg', 'ffmpeg.exe')
+  : 'ffmpeg';
+
+console.log(`📹 Using FFmpeg at: ${FFMPEG_PATH}`);
+
 app.use(fileUpload());
 app.use(express.static("public"));
 app.set("view engine", "ejs");
@@ -86,10 +94,10 @@ app.post("/upload", async (req, res) => {
     let ffmpegCmd;
 
     if (frameRate === 'all') {
-      ffmpegCmd = `ffmpeg -i "${uploadPath}" "${outputDir}/frame_%04d.png"`;
+      ffmpegCmd = `"${FFMPEG_PATH}" -i "${uploadPath}" "${outputDir}/frame_%04d.png"`;
     } else {
       // Extract frames at specified rate (e.g., 1fps, 5fps, 10fps)
-      ffmpegCmd = `ffmpeg -i "${uploadPath}" -vf "fps=${frameRate}" "${outputDir}/frame_%04d.png"`;
+      ffmpegCmd = `"${FFMPEG_PATH}" -i "${uploadPath}" -vf "fps=${frameRate}" "${outputDir}/frame_%04d.png"`;
     }
 
     exec(ffmpegCmd, async (err, stdout, stderr) => {
