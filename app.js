@@ -15,11 +15,21 @@ const FFMPEG_PATH = fs.existsSync(path.join(__dirname, 'ffmpeg', 'ffmpeg.exe'))
 
 console.log(`📹 Using FFmpeg at: ${FFMPEG_PATH}`);
 
-app.use(fileUpload());
+app.use(fileUpload({
+  useTempFiles: true,
+  tempFileDir: path.join(__dirname, 'tmp'),
+  limits: { fileSize: 100 * 1024 * 1024 },
+  abortOnLimit: true
+}));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Serve favicon
+app.get('/favicon.ico', (req, res) => {
+  res.redirect(301, '/favicon.svg');
+});
 
 const UPLOAD_DIR = path.join(__dirname, "public", "uploads");
 const FRAME_DIR = path.join(__dirname, "public", "frames");
@@ -87,6 +97,7 @@ app.post("/upload", async (req, res) => {
     const outputDir = path.join(FRAME_DIR, sessionId);
     fs.ensureDirSync(outputDir);
 
+    // Move file (will use temp files for better performance)
     await video.mv(uploadPath);
 
     // Get frame rate from form (default: extract all frames)
