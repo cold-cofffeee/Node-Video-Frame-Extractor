@@ -1,7 +1,7 @@
 {
-  "name": "video-frame-extractor",
-  "version": "2.0.0",
-  "description": "A modern web application to extract frames from videos using Node.js, Express, and FFmpeg. Upload videos, choose frame rates, and download frames individually or as a ZIP file.",
+  "name": "video-frame-extractor-pro",
+  "version": "3.0.0",
+  "description": "Professional AI-powered video frame extraction tool with scene detection, quality scoring, and intelligent analysis using Google Gemini AI",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -15,6 +15,11 @@
     "ffmpeg",
     "nodejs",
     "express",
+    "ai",
+    "scene-detection",
+    "video-analysis",
+    "google-gemini",
+    "computer-vision",
     "video-processing",
     "frame-extraction",
     "video-frames",
@@ -28,16 +33,18 @@
     "url": "https://github.com/yourusername/video-frame-extractor.git"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "archiver": "^7.0.1",
     "bootstrap": "^5.3.8",
     "child_process": "^1.0.2",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-fileupload": "^1.5.2",
+    "fluent-ffmpeg": "^2.1.3",
     "fs-extra": "^11.3.2",
+    "sharp": "^0.34.5",
     "uuid": "^13.0.0"
   },
-  "devDependencies": {},
   "engines": {
     "node": ">=14.0.0"
   }
